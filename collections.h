@@ -2,7 +2,7 @@
 
 /* basic list structure, a wrapping around an array */
 typedef struct list_struct {
-    void **array;           /* inner array */
+    void** array;           /* inner array */
 
     size_t count;            /* amount of items currently stored in array */
     size_t capacity;            /* possible amount of items stored in the array (can be expanded) */
@@ -15,7 +15,7 @@ list new_list(void) {
 }
 
 /* returns an item from list by index or NULL if index is out of range */
-void *index_of_list(list *list, size_t index) {
+void* index_of_list(list* list, size_t index) {
     if (index >= list->capacity) {         /* Throw the error if index is out of range */
         perror("INDEX WAS OUT OF RANGE");
         return NULL;
@@ -25,7 +25,7 @@ void *index_of_list(list *list, size_t index) {
 }
 
 /* adds item to list */
-void add_to_list(list *list, void *item) {
+void add_to_list(list* list, void* item) {
     if (list->capacity == 0) {          /* allocate initial 4 bytes if empty */
         list->capacity = 4;
         list->array = calloc(list->capacity, 1);            /* used calloc to remove garbage values */
@@ -34,11 +34,11 @@ void add_to_list(list *list, void *item) {
         list->array = realloc(list->array, list->capacity);
     }
 
-    (*list).array[list->count++] = item;
+    list->array[list->count++] = item;
 }
 
 /* removes the first occurrence of item from list */
-void remove_from_list(list *list, void *item) {
+void remove_from_list(list* list, void* item) {
     for (int i = 0; i < list->count; ++i) {
         if (list->array[i] == item) {
             for (int k = i; k < list->count; ++k) {     /* Defragmentation of list */
@@ -51,7 +51,7 @@ void remove_from_list(list *list, void *item) {
 }
 
 /* removes all items from list, keeps retains capacity */
-void remove_all_from_list(list *list) {
+void remove_all_from_list(list* list) {
     for (int i = 0; i < list->count; ++i) {
         list->array[i] = NULL;
     }
