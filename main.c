@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "collections.h"
+#include "list.h"
 #include <string.h>
 
 /* Examples of usage of all collections from collections.h */
@@ -28,8 +28,6 @@ int main(void) {
     }
 
     remove_all_from_list(&my_list);         /* nullify all items */
-
-    dealloc_list(&my_list);         /* free memory used by the list */
 
     return 0;
 }

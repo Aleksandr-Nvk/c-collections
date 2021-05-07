@@ -64,10 +64,4 @@ void clear_list(list* list) {
     list->capacity = 0;
 
     free(list->array);
-    list->array = malloc(0);
-}
-
-/* frees memory occupied by list */
-void dealloc_list(list* list) {
-    free(list->array);
 }
