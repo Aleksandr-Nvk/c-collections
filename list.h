@@ -1,7 +1,7 @@
 #include <stdlib.h>
 
 /* basic list structure, a wrapping around an array */
-typedef struct list_struct {
+typedef struct list {
     void** array;           /* inner array */
 
     size_t count;            /* amount of items currently stored in array */
@@ -38,7 +38,7 @@ void add_to_list(list* list, void* item) {
 }
 
 /* removes the first occurrence of item from list */
-void remove_from_list(list* list, void* item) {
+void rem_fr_list(list* list, void* item) {
     for (int i = 0; i < list->count; ++i) {
         if (list->array[i] == item) {
             for (int k = i; k < list->count; ++k) {     /* Defragmentation of list */
@@ -50,8 +50,8 @@ void remove_from_list(list* list, void* item) {
     }
 }
 
-/* removes all items from list, keeps retains capacity */
-void remove_all_from_list(list* list) {
+/* removes all items from list, keeps capacity */
+void rem_all_fr_list(list* list) {
     for (int i = 0; i < list->count; ++i) {
         list->array[i] = NULL;
     }
