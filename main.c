@@ -3,6 +3,12 @@
 #include "linked_list.h"
 #include <string.h>
 
+/* prints linked list content recursively */
+void print_lin_list(node* current);
+
+/* reverses str and returns it */
+char* str_rev(const char* str, size_t len);
+
 /* Examples of usage of all collections from collections.h */
 int main(void) {
 
@@ -38,10 +44,53 @@ int main(void) {
 
     printf("***************** LINKED LIST *****************\n\n");
 
-    linked_list my_lin_list = new_lin_list();   /* creating a linked list */
-    char string_ll[] = "Another example!";
+    char string_ll[] = "example!";
+    node head = new_lin_list_head(&string_ll[0]);  /* creating a head node */
+
+    for (int i = 1; i < strlen(string_ll); ++i) {
+        ap_lin_list(&head, &string_ll[i]);  /* implicit creation of nodes and appending to the chain */
+    }
+
+    print_lin_list(&head);          /* printing data from the linked list recursively */
+    printf("\n");
+
+    char* string_ll_1 = "Another ";
+    string_ll_1 = str_rev(string_ll_1, strlen(string_ll_1));
+
+    node* new_head = &head;
+
+    for (int i = 0; i < strlen(string_ll_1); ++i) {
+        new_head = prep_to_lin_list(new_head, &string_ll_1[i]);  /* implicit creation of nodes and prepending to the chain */
+    }
+
+    print_lin_list(new_head);
+
+    clear_lin_list(new_head);           /* deallocate all nodes starting from 'new_head' */
 
     printf("\n\n**********************************\n\n");
 
     return 0;
+}
+
+void print_lin_list(node* current) {
+    if (current != NULL) {
+        char* data = current->data;
+        printf("%c", *data);
+
+        if (current->next != NULL) {
+            print_lin_list(current->next);
+        }
+    }
+}
+
+char* str_rev(const char* str, size_t len) {
+    char* reversed = malloc(len + 1);
+    int i = 0;
+
+    for (; i < len; ++i) {
+        reversed[i] = str[len - 1 - i];
+    }
+    reversed[i] = '\0';
+
+    return reversed;
 }
