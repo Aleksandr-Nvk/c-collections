@@ -45,27 +45,47 @@ int main(void) {
     printf("***************** LINKED LIST *****************\n\n");
 
     char string_ll[] = "example!";
-    node head = new_lin_list_head(&string_ll[0]);  /* creating a head node */
+    node* head = new_lin_list_head(&string_ll[0]);  /* creating a head node */
 
     for (int i = 1; i < strlen(string_ll); ++i) {
-        ap_lin_list(&head, &string_ll[i]);  /* implicit creation of nodes and appending to the chain */
+        ap_to_lin_list(head, &string_ll[i]);  /* implicit creation of nodes and appending to the chain */
     }
 
-    print_lin_list(&head);          /* printing data from the linked list recursively */
+    print_lin_list(head);          /* printing data from the linked list recursively */
     printf("\n");
 
     char* string_ll_1 = "Another ";
     string_ll_1 = str_rev(string_ll_1, strlen(string_ll_1));
 
-    node* new_head = &head;
+    node* new_head = head;
 
     for (int i = 0; i < strlen(string_ll_1); ++i) {
         new_head = prep_to_lin_list(new_head, &string_ll_1[i]);  /* implicit creation of nodes and prepending to the chain */
     }
 
     print_lin_list(new_head);
+    printf("\n");
 
-    clear_lin_list(new_head);           /* deallocate all nodes starting from 'new_head' */
+    char* string_ll_2 = " 'garbage line!'";          /* just an example of string we want to remove */
+
+    for (int i = 0; i < strlen(string_ll_2); ++i) {
+        ap_to_lin_list(new_head, &string_ll_2[i]);          /* adding garbage string */
+    }
+
+    print_lin_list(new_head);
+    printf("\n");
+
+    for (int i = 0; i < strlen(string_ll_2); ++i) {
+        rem_fr_end_of_lin_list(new_head);           /* removing garbage string */
+    }
+
+    for (int i = 0; i < 2; ++i) {
+        new_head = rem_at_head_of_lin_list(new_head);   /* removing items from head */
+    }
+
+    print_lin_list(new_head);
+
+    clear_lin_list(new_head);        /* deallocate all nodes starting from 'new_head' */
 
     printf("\n\n**********************************\n\n");
 
