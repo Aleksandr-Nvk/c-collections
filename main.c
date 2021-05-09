@@ -53,8 +53,8 @@ int main(void) {
 
     Node* new_head = head;
 
-    for (int i = 0; i < strlen(string_ll_1); ++i) {
-        new_head = lin_list_prepend(new_head, &string_ll_1[i]);  /* implicit creation of nodes and prepending to the chain */
+    for (int i = 0; i < strlen(string_ll_1); ++i) {     /* implicit creation of nodes and prepending to the chain */
+        new_head = lin_list_prepend(new_head, &string_ll_1[i]);
     }
 
     lin_list_print(new_head);
@@ -76,6 +76,8 @@ int main(void) {
     for (int i = 0; i < 2; ++i) {
         new_head = lin_list_remove_head(new_head);   /* removing items from head */
     }
+
+    lin_list_remove(new_head, &string_ll[7]);     /* remove a node by value */
 
     lin_list_print(new_head);
 

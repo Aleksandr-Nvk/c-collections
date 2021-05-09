@@ -27,8 +27,9 @@ Node* lin_list_get_tail(Node* head) {
 
 /* appends a new node with 'new_data' data to linked list */
 void lin_list_append(Node* head, void* new_data) {
-    Node* end = lin_list_get_tail(head);
-    Node* new_node = malloc(sizeof(Node));  /*
+    Node *end, *new_node;
+    end = lin_list_get_tail(head);
+    new_node = malloc(sizeof(Node));  /*
                                              * memory needs to be allocated, otherwise 'new_node' will be freed from
                                              * stack as soon as the function ends, which will cause infinite recursion
                                              * in 'lin_list_get_tail()'. Same applies to 'lin_list_prepend()'
@@ -49,26 +50,53 @@ Node* lin_list_prepend(Node* head, void* new_data) {
     return new_head;
 }
 
-/* removes the last node from linked list */
-void lin_list_remove_tail(Node* head) {
-    Node* current = head;
-    Node* penultimate;
-
-    while(current->next != NULL) {
-        penultimate = current;
-        current = current->next;
-    }
-
-    penultimate->next = NULL;
-    free(current);
-}
-
 /* removes head node from linked list and returns a new head */
 Node* lin_list_remove_head(Node* head) {
     Node* new_head = head->next;
     free(head);
 
     return new_head;
+}
+
+/* removes the last node from linked list */
+void lin_list_remove_tail(Node* head) {
+    Node *current, *previous;
+    current = previous = head;
+
+    while (current->next != NULL) {
+        previous = current;
+        current = current->next;
+    }
+
+    previous->next = NULL;
+    free(current);
+}
+
+/* removes the first node with data identical to given from linked list and returns a head */
+Node* lin_list_remove(Node* head, void* data) {
+    Node *current, *previous;
+    current = previous = head;
+
+    while (current != NULL) {
+        if (current->data == data) {
+            if (current == head) {
+                return lin_list_remove_head(head);
+            } else if (current->next == NULL) {
+                previous->next = NULL;
+                free(current);
+            } else {
+                previous->next = current->next;
+                free(current);
+            }
+
+            return head;
+        }
+
+        previous = current;
+        current = current->next;
+    }
+
+    return head;
 }
 
 /* completely deallocates linked list */

@@ -1,5 +1,7 @@
 #include <stdlib.h>
 
+#define MIN_CAPACITY 4  /* min capacity an array is expanded to when You add an item to a zero-capacity list */
+
 /* basic list structure, a wrapping around an array */
 typedef struct List {
     void** array;
@@ -27,7 +29,7 @@ void* list_of_index(List* list, size_t index) {
 /* adds item to list */
 void list_add(List* list, void* item) {
     if (list->capacity == 0) {          /* allocate initial 4 bytes if empty */
-        list->capacity = 4;
+        list->capacity = MIN_CAPACITY;
         list->array = calloc(list->capacity, 1);            /* used calloc to remove garbage values */
     } else if (list->count == list->capacity) {         /* double the size if needed */
         list->capacity *= 2;
