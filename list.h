@@ -30,10 +30,10 @@ void* list_of_index(List* list, size_t index) {
 void list_add(List* list, void* item) {
     if (list->capacity == 0) {          /* allocate initial 4 bytes if empty */
         list->capacity = MIN_CAPACITY;
-        list->array = calloc(list->capacity, 1);            /* used calloc to remove garbage values */
+        list->array = calloc(list->capacity, sizeof(void*));            /* used calloc to remove garbage values */
     } else if (list->count == list->capacity) {         /* double the size if needed */
         list->capacity *= 2;
-        list->array = realloc(list->array, list->capacity);
+        list->array = realloc(list->array, list->capacity * sizeof(void*));
     }
 
     list->array[list->count++] = item;
@@ -53,7 +53,7 @@ void list_remove(List* list, void* item) {
 }
 
 /* removes all items from list, keeps capacity unchanged */
-void list_remove_all(List* list) {
+void list_clear(List* list) {
     for (int i = 0; i < list->count; ++i) {
         list->array[i] = NULL;
     }
@@ -61,7 +61,7 @@ void list_remove_all(List* list) {
 }
 
 /* completely deallocates list */
-void list_clear(List* list) {
+void list_dealloc(List* list) {
     list->count = 0;
     list->capacity = 0;
 

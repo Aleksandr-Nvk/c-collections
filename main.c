@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "list.h"
 #include "linked_list.h"
+#include "stack.h"
 #include <string.h>
 
 /* prints linked list content recursively */
@@ -21,7 +22,7 @@ int main(void) {
         list_add(&my_list, &string_l[i]);
     }
 
-    list_clear(&my_list);           /* practically recreating the list */
+    list_clear(&my_list);         /* nullify all items */
 
     for (int i = 0; i < strlen(string_l); ++i) {   /* placing characters into the list again */
         list_add(&my_list, &string_l[i]);
@@ -34,7 +35,7 @@ int main(void) {
         printf("%c", *c);
     }
 
-    list_remove_all(&my_list);         /* nullify all items */
+    list_dealloc(&my_list);           /* deallocating the list */
 
     printf("\n\n***************** LINKED LIST *****************\n\n");
 
@@ -81,7 +82,25 @@ int main(void) {
 
     lin_list_print(new_head);
 
-    lin_list_clear(new_head);        /* deallocate all nodes starting from 'new_head' */
+    lin_list_dealloc(new_head);        /* deallocate all nodes starting from 'new_head' */
+
+    printf("\n\n***************** STACK *****************\n\n");
+
+    Stack new_stack = stack_new();
+    char* st_string = "!kcab detnirp dna kcats ni derots saw I esuaceb desrever m'I";
+
+    for (int i = 0; i < strlen(st_string); ++i) {
+        push(&new_stack, &st_string[i]);            /* putting an item to the top of stack */
+    }
+
+    while (new_stack.count > 0) {
+        char* c = pop(&new_stack);          /* taking an item from the top of stack */
+        putchar(*c);
+    }
+
+    printf("\nNow stack has %zu items", new_stack.count);
+
+    stack_dealloc(&new_stack);          /* deallocating stack */
 
     return 0;
 }
