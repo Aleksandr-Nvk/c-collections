@@ -100,9 +100,9 @@ Node* lin_list_remove(Node* head, void* data) {
 }
 
 /* completely deallocates linked list */
-void lin_list_clear(Node* head) {
+void lin_list_dealloc(Node* head) {
     if (head->next != NULL) {
-        lin_list_clear(head->next);
+        lin_list_dealloc(head->next);
     }
     free(head);
 }
