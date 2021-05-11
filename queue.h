@@ -13,15 +13,15 @@ typedef struct Queue {
 
 /* creates a new queue with zero capacity and returns it */
 Queue queue_new(void) {
-    Queue new_stack = {NULL, 0, 0};
-    return new_stack;
+    Queue new_queue = {NULL, 0, 0};
+    return new_queue;
 }
 
 /* adds item to the end of queue for pending */
 void queue_enqueue(Queue* queue, void* item) {
     if (queue->capacity == 0) {          /* allocate initial 4 bytes if empty */
         queue->capacity = MIN_CAPACITY;
-        queue->array = calloc(queue->capacity, sizeof(void*));            /* used calloc to remove garbage values */
+        queue->array = malloc(queue->capacity * sizeof(void*));
     } else if (queue->count == queue->capacity) {         /* double the size if needed */
         queue->capacity *= 2;
         queue->array = realloc(queue->array, queue->capacity * sizeof(void*));
@@ -57,16 +57,13 @@ void* queue_peek(Queue* queue) {
 
 /* removes all items from queue, keeps capacity unchanged */
 void queue_clear(Queue* queue) {
-    for (int i = 0; i < queue->count; ++i) {
-        queue->array[i] = NULL;
-    }
     queue->count = 0;
 }
 
 /* completely deallocates queue */
-void queue_dealloc(Queue* stack) {
-    stack->count = 0;
-    stack->capacity = 0;
+void queue_dealloc(Queue* queue) {
+    queue->count = 0;
+    queue->capacity = 0;
 
-    free(stack->array);
+    free(queue->array);
 }
