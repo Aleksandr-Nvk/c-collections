@@ -31,7 +31,7 @@ void push(Stack* stack, void* item) {
 }
 
 /* removes the last item from stack and returns it */
-void* pop(Stack* stack) {
+void* stack_pop(Stack* stack) {
     if (stack->count != 0) {
         return stack->array[--stack->count];
     }
@@ -41,7 +41,7 @@ void* pop(Stack* stack) {
 }
 
 /* returns the last item from stack, keeps it in stack */
-void* peek(Stack* stack) {
+void* stack_peek(Stack* stack) {
     if (stack->count != 0) {
         return stack->array[stack->count - 1];
     }

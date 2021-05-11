@@ -1,8 +1,9 @@
 #include <stdio.h>
+#include <string.h>
 #include "list.h"
 #include "linked_list.h"
 #include "stack.h"
-#include <string.h>
+#include "queue.h"
 
 /* prints linked list content recursively */
 void lin_list_print(Node* head);
@@ -32,7 +33,7 @@ int main(void) {
 
     for (int i = 0; i < my_list.count; ++i) {    /* printing the items of the list */
         char* c = list_of_index(&my_list, i);
-        printf("%c", *c);
+        putchar(*c);
     }
 
     list_dealloc(&my_list);           /* deallocating the list */
@@ -47,7 +48,7 @@ int main(void) {
     }
 
     lin_list_print(head);          /* printing data from the linked list recursively */
-    printf("\n");
+    putchar('\n');
 
     char* string_ll_1 = "Another ";
     string_ll_1 = str_reverse(string_ll_1, strlen(string_ll_1));
@@ -59,7 +60,7 @@ int main(void) {
     }
 
     lin_list_print(new_head);
-    printf("\n");
+    putchar('\n');
 
     char* string_ll_2 = " 'garbage line!'";          /* just an example of string we want to remove */
 
@@ -68,7 +69,7 @@ int main(void) {
     }
 
     lin_list_print(new_head);
-    printf("\n");
+    putchar('\n');
 
     for (int i = 0; i < strlen(string_ll_2); ++i) {
         lin_list_remove_tail(new_head);           /* removing garbage string */
@@ -94,13 +95,38 @@ int main(void) {
     }
 
     while (new_stack.count > 0) {
-        char* c = pop(&new_stack);          /* taking an item from the top of stack */
+        char* c = stack_pop(&new_stack);          /* taking an item from the top of stack */
         putchar(*c);
     }
 
     printf("\nNow stack has %zu items", new_stack.count);
 
     stack_dealloc(&new_stack);          /* deallocating stack */
+
+    printf("\n\n***************** QUEUE *****************\n\n");
+
+    Queue new_queue = queue_new();          /* creating a new queue */
+    char qu_string[] = "Queue example!";
+
+    for (int i = 0; i < strlen(qu_string); ++i) {
+        queue_enqueue(&new_queue, &qu_string[i]);   /* putting chars into a queue */
+    }
+
+    for (int i = 0; i < new_queue.count; ++i) {
+        char* c = queue_peek(&new_queue);    /* getting only the next item without removing it from the queue */
+        putchar(*c);
+    }
+
+    putchar('\n');
+
+    while (new_queue.count > 0) {
+        char* c = queue_dequeue(&new_queue);    /* getting items and removing them from the queue */
+        putchar(*c);
+    }
+
+    queue_clear(&new_queue);            /* removing all items from the queue (makes no sense here, just an example) */
+
+    queue_dealloc(&new_queue);          /* completely deallocating the queue */
 
     return 0;
 }
