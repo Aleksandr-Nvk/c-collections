@@ -9,6 +9,8 @@ typedef struct KeyValuePair {
 
 typedef struct Dictionary {
     KeyValuePair** array;           /* array of 10 arrays, basic structure of hash table */
+    void*** keys;
+
     size_t* counts;         /* stores 10 counts of each nested array */
     size_t* capacities;         /* stores 10 capacities of each nested array */
 
@@ -16,28 +18,40 @@ typedef struct Dictionary {
 } Dictionary;
 
 Dictionary dictionary_new() {
-    Dictionary new_dictionary = {malloc(10 * sizeof(KeyValuePair*)), calloc(10, sizeof(size_t)),
-                                 calloc(10, sizeof(size_t)), 0};
+    Dictionary new_dictionary = {malloc(10 * sizeof(KeyValuePair*)), calloc(10, sizeof(void**)),
+                                 calloc(10, sizeof(size_t)),calloc(10, sizeof(size_t)), 0};
 
     return new_dictionary;
 }
 
+/* binds value to key and adds it to dictionary */
 void dictionary_add(Dictionary* dictionary, void* key, void* value) {
     size_t index = (long)key % 10;
 
     if (dictionary->capacities[index] == 0) {
         dictionary->capacities[index] = MIN_CAPACITY;
         dictionary->array[index] = malloc(dictionary->capacities[index] * sizeof(KeyValuePair));
+        dictionary->keys[index] = malloc(dictionary->capacities[index] * sizeof(void*));
     } else if (dictionary->capacities[index] == dictionary->counts[index]) {
         dictionary->capacities[index] *= 2;
         dictionary->array[index] = realloc(dictionary->array[index], dictionary->capacities[index] * sizeof(KeyValuePair));
+        dictionary->keys[index] = realloc(dictionary->keys[index], dictionary->capacities[index] * sizeof(void*));
+    }
+
+    for (int i = 0; i < dictionary->counts[index]; ++i) {
+        if (dictionary->keys[index][i] == key) {
+            perror("\nITEM WITH SUCH KEY ALREADY EXISTS");
+            return;
+        }
     }
 
     KeyValuePair new_pair = {key, value};
+    dictionary->keys[index][dictionary->counts[index]] = key;
     dictionary->array[index][dictionary->counts[index]++] = new_pair;
     ++dictionary->count;
 }
 
+/* returns a value by its key */
 void* dictionary_resolve(Dictionary* dictionary, void* key) {
     size_t index = (long)key % 10;
     KeyValuePair* array = dictionary->array[index];
@@ -48,6 +62,6 @@ void* dictionary_resolve(Dictionary* dictionary, void* key) {
         }
     }
 
-    perror("NO ITEM WITH SUCH KEY");
+    perror("\nNO ITEM WITH SUCH KEY FOUND");
     return NULL;
 }

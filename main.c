@@ -7,10 +7,29 @@
 #include "dictionary.h"
 
 /* prints linked list content recursively */
-void lin_list_print(Node* head);
+void lin_list_print(Node* head) {
+    if (head != NULL) {
+        char* data = head->data;
+        printf("%c", *data);
+
+        if (head->next != NULL) {
+            lin_list_print(head->next);
+        }
+    }
+}
 
 /* reverses string and returns it */
-char* str_reverse(const char* string, size_t length);
+char* str_reverse(const char* string, size_t length) {
+    char* reversed = malloc(length + 1);
+    int i = 0;
+
+    for (; i < length; ++i) {
+        reversed[i] = string[length - 1 - i];
+    }
+    reversed[i] = '\0';
+
+    return reversed;
+}
 
 /* Examples of usage of all collections */
 int main(void) {
@@ -133,40 +152,14 @@ int main(void) {
 
     Dictionary new_dictionary = dictionary_new();
     short keys[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-    char values[] = "ottffssenz";           /* first letters of digits from 0 to 9 */
 
-     /* char* values[] = {"Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"}; */
-     /*          ^--- doesn't work :(         */
-
+    char* values[] = {"Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"};
 
     for (int i = 0; i < sizeof(keys) / sizeof(keys[0]); ++i) {
-        dictionary_add(&new_dictionary, &keys[i], &values[i]);
+        dictionary_add(&new_dictionary, &keys[i], values[i]);
     }
 
-    printf("%c", *(char*)dictionary_resolve(&new_dictionary, &keys[7]));
+    printf("%s", (char*)dictionary_resolve(&new_dictionary, &keys[8]));
 
     return 0;
-}
-
-void lin_list_print(Node* head) {
-    if (head != NULL) {
-        char* data = head->data;
-        printf("%c", *data);
-
-        if (head->next != NULL) {
-            lin_list_print(head->next);
-        }
-    }
-}
-
-char* str_reverse(const char* string, size_t length) {
-    char* reversed = malloc(length + 1);
-    int i = 0;
-
-    for (; i < length; ++i) {
-        reversed[i] = string[length - 1 - i];
-    }
-    reversed[i] = '\0';
-
-    return reversed;
 }

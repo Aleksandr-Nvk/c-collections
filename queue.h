@@ -41,7 +41,7 @@ void* queue_dequeue(Queue* queue) {
         return next;
     }
 
-    perror("QUEUE IS EMPTY");
+    perror("\nQUEUE IS EMPTY");
     return NULL;
 }
 
@@ -51,7 +51,7 @@ void* queue_peek(Queue* queue) {
         return queue->array[0];
     }
 
-    perror("QUEUE IS EMPTY");
+    perror("\nQUEUE IS EMPTY");
     return NULL;
 }
 
