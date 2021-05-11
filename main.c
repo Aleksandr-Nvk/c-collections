@@ -150,16 +150,22 @@ int main(void) {
 
     printf("\n\n***************** DICTIONARY (HASH TABLE) *****************\n\n");
 
-    Dictionary new_dictionary = dictionary_new();
+    Dictionary new_dictionary = dict_new();   /* creating a new dictionary */
     short keys[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
     char* values[] = {"Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"};
 
     for (int i = 0; i < sizeof(keys) / sizeof(keys[0]); ++i) {
-        dictionary_add(&new_dictionary, &keys[i], values[i]);
+        dict_add(&new_dictionary, &keys[i], values[i]);   /* adding values and their keys to dictionary */
     }
 
-    printf("%s", (char*)dictionary_resolve(&new_dictionary, &keys[8]));
+    dict_remove(&new_dictionary, &keys[8]);   /* removing '8-"Eight"' pair */
+
+    printf("%s", (char*) dict_resolve(&new_dictionary, &keys[8]));     /* printing the 8th digit */
+
+    dict_clear(&new_dictionary);
+
+    dict_dealloc(&new_dictionary);
 
     return 0;
 }
