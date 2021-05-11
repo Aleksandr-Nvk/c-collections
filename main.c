@@ -4,6 +4,7 @@
 #include "linked_list.h"
 #include "stack.h"
 #include "queue.h"
+#include "dictionary.h"
 
 /* prints linked list content recursively */
 void lin_list_print(Node* head);
@@ -127,6 +128,22 @@ int main(void) {
     queue_clear(&new_queue);            /* removing all items from the queue (makes no sense here, just an example) */
 
     queue_dealloc(&new_queue);          /* completely deallocating the queue */
+
+    printf("\n\n***************** DICTIONARY (HASH TABLE) *****************\n\n");
+
+    Dictionary new_dictionary = dictionary_new();
+    short keys[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    char values[] = "ottffssenz";           /* first letters of digits from 0 to 9 */
+
+     /* char* values[] = {"Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"}; */
+     /*          ^--- doesn't work :(         */
+
+
+    for (int i = 0; i < sizeof(keys) / sizeof(keys[0]); ++i) {
+        dictionary_add(&new_dictionary, &keys[i], &values[i]);
+    }
+
+    printf("%c", *(char*)dictionary_resolve(&new_dictionary, &keys[7]));
 
     return 0;
 }
