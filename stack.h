@@ -36,7 +36,7 @@ void* stack_pop(Stack* stack) {
         return stack->array[--stack->count];
     }
 
-    perror("STACK IS EMPTY");
+    perror("\nSTACK IS EMPTY");
     return NULL;
 }
 
@@ -46,7 +46,7 @@ void* stack_peek(Stack* stack) {
         return stack->array[stack->count - 1];
     }
 
-    perror("STACK IS EMPTY");
+    perror("\nSTACK IS EMPTY");
     return NULL;
 }
 

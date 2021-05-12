@@ -19,7 +19,7 @@ List list_new(void) {
 /* returns an item from list by index or NULL if index is out of range */
 void* list_of_index(List* list, size_t index) {
     if (index >= list->capacity) {         /* Throw the error if index is out of range */
-        perror("INDEX WAS OUT OF RANGE");
+        perror("\nINDEX WAS OUT OF RANGE");
         return NULL;
     }
 
