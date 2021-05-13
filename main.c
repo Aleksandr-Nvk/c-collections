@@ -36,27 +36,20 @@ int main(void) {
 
     printf("\n\n***************** LIST *****************\n\n");
 
-    List my_list = list_new();          /* creating a list */
-    char string_l[] = "Hello, world!";
+    List list = list_new();          /* creating a new list */
+    char* list_string = "Exam";
 
-    for (int i = 0; i < strlen(string_l); ++i) {   /* placing characters into the list */
-        list_add(&my_list, &string_l[i]);
+    for (int i = 0; i < strlen(list_string); ++i) {
+        list_add(&list, &list_string[i]);
     }
 
-    list_clear(&my_list);         /* nullify all items */
+    list_remove(&list, &list_string[0]);
 
-    for (int i = 0; i < strlen(string_l); ++i) {   /* placing characters into the list again */
-        list_add(&my_list, &string_l[i]);
+    for (int i = 0; i < list.count; ++i) {
+        putchar(*(char*)list_of_index(&list, i));
     }
 
-    list_remove(&my_list, list_of_index(&my_list, 4));    /* remove an item with index '4' */
-
-    for (int i = 0; i < my_list.count; ++i) {    /* printing the items of the list */
-        char* c = list_of_index(&my_list, i);
-        putchar(*c);
-    }
-
-    list_dealloc(&my_list);           /* deallocating the list */
+    list_dealloc(&list);           /* deallocating the list using list API */
 
     printf("\n\n***************** LINKED LIST *****************\n\n");
 
@@ -107,65 +100,65 @@ int main(void) {
 
     printf("\n\n***************** STACK *****************\n\n");
 
-    Stack new_stack = stack_new();
+    Stack stack = stack_new();
     char* st_string = "!kcab detnirp dna kcats ni derots saw I esuaceb desrever m'I";
 
     for (int i = 0; i < strlen(st_string); ++i) {
-        push(&new_stack, &st_string[i]);            /* putting an item to the top of stack */
+        push(&stack, &st_string[i]);            /* putting an item to the top of stack */
     }
 
-    while (new_stack.count > 0) {
-        char* c = stack_pop(&new_stack);          /* taking an item from the top of stack */
+    while (stack.count > 0) {
+        char* c = stack_pop(&stack);          /* taking an item from the top of stack */
         putchar(*c);
     }
 
-    printf("\nNow stack has %zu items", new_stack.count);
+    printf("\nNow stack has %zu items", stack.count);
 
-    stack_dealloc(&new_stack);          /* deallocating stack */
+    stack_dealloc(&stack);          /* deallocating stack */
 
     printf("\n\n***************** QUEUE *****************\n\n");
 
-    Queue new_queue = queue_new();          /* creating a new queue */
+    Queue queue = queue_new();          /* creating a new queue */
     char qu_string[] = "Queue example!";
 
     for (int i = 0; i < strlen(qu_string); ++i) {
-        queue_enqueue(&new_queue, &qu_string[i]);   /* putting chars into a queue */
+        queue_enqueue(&queue, &qu_string[i]);   /* putting chars into a queue */
     }
 
-    for (int i = 0; i < new_queue.count; ++i) {
-        char* c = queue_peek(&new_queue);    /* getting only the next item without removing it from the queue */
+    for (int i = 0; i < queue.count; ++i) {
+        char* c = queue_peek(&queue);    /* getting only the next item without removing it from the queue */
         putchar(*c);
     }
 
     putchar('\n');
 
-    while (new_queue.count > 0) {
-        char* c = queue_dequeue(&new_queue);    /* getting items and removing them from the queue */
+    while (queue.count > 0) {
+        char* c = queue_dequeue(&queue);    /* getting items and removing them from the queue */
         putchar(*c);
     }
 
-    queue_clear(&new_queue);            /* removing all items from the queue (makes no sense here, just an example) */
+    queue_clear(&queue);            /* removing all items from the queue (makes no sense here, just an example) */
 
-    queue_dealloc(&new_queue);          /* completely deallocating the queue */
+    queue_dealloc(&queue);          /* completely deallocating the queue */
 
     printf("\n\n***************** DICTIONARY (HASH TABLE) *****************\n\n");
 
-    Dictionary new_dictionary = dict_new();   /* creating a new dictionary */
+    Dictionary dictionary = dict_new();   /* creating a new dictionary */
     short keys[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-
     char* values[] = {"Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"};
 
     for (int i = 0; i < sizeof(keys) / sizeof(keys[0]); ++i) {
-        dict_add(&new_dictionary, &keys[i], values[i]);   /* adding values and their keys to dictionary */
+        dict_add(&dictionary, &keys[i], values[i]);   /* adding values and their keys to dictionary */
     }
 
-    dict_remove(&new_dictionary, &keys[8]);   /* removing '8-"Eight"' pair */
+    dict_remove(&dictionary, &keys[8]);   /* removing '8-"Eight"' pair */
 
-    printf("%s", (char*) dict_resolve(&new_dictionary, &keys[8]));     /* printing the 8th digit */
+    printf("%s\n", (char*) dict_resolve(&dictionary, &keys[2]));
+    printf("%s\n", (char*) dict_resolve(&dictionary, &keys[8]));     /* printing the 8th digit */
 
-    dict_clear(&new_dictionary);
+    dict_clear(&dictionary);
 
-    dict_dealloc(&new_dictionary);
+    dict_dealloc(&dictionary);
 
     return 0;
 }

@@ -6,17 +6,16 @@ typedef struct Node {
     struct Node* next;
 } Node;
 
-/* creates a new linked list head node with data and returns it */
+/* returns a new head node */
 Node* lin_list_new_head(void* data) {
     Node* new_node = malloc(sizeof(Node));  /* heads are allocated in heap to be cleaned easily */
-
     new_node->data = data;
     new_node->next = NULL;
 
     return new_node;
 }
 
-/* gets the last node in linked list and returns it */
+/* returns the last node in a linked list */
 Node* lin_list_get_tail(Node* head) {
     if (head->next != NULL) {
         return lin_list_get_tail(head->next);
@@ -25,32 +24,32 @@ Node* lin_list_get_tail(Node* head) {
     return head;
 }
 
-/* appends a new node with 'new_data' data to linked list */
-void lin_list_append(Node* head, void* new_data) {
-    Node *end, *new_node;
-    end = lin_list_get_tail(head);
-    new_node = malloc(sizeof(Node));  /*
+/* appends a new node with given data to a linked list */
+void lin_list_append(Node* head, void* data) {
+    Node *tail, *new_node;
+    tail = lin_list_get_tail(head);
+    new_node = malloc(sizeof(Node));        /*
                                              * memory needs to be allocated, otherwise 'new_node' will be freed from
                                              * stack as soon as the function ends, which will cause infinite recursion
                                              * in 'lin_list_get_tail()'. Same applies to 'lin_list_prepend()'
                                              */
-    new_node->data = new_data;
+    new_node->data = data;
     new_node->next = NULL;
 
-    end->next = new_node;
+    tail->next = new_node;
 }
 
-/* prepends a new head with new data to linked list and returns it */
-Node* lin_list_prepend(Node* head, void* new_data) {
+/* prepends a new head with given data to a linked list and returns it */
+Node* lin_list_prepend(Node* head, void* data) {
     Node* new_head = malloc(sizeof(Node));
 
-    new_head->data = new_data;
+    new_head->data = data;
     new_head->next = head;
 
     return new_head;
 }
 
-/* removes head node from linked list and returns a new head */
+/* removes head node from a linked list and returns a new head (or NULL if head was the only node) */
 Node* lin_list_remove_head(Node* head) {
     Node* new_head = head->next;
     free(head);
@@ -58,7 +57,7 @@ Node* lin_list_remove_head(Node* head) {
     return new_head;
 }
 
-/* removes the last node from linked list */
+/* removes the last node from a linked list */
 void lin_list_remove_tail(Node* head) {
     Node *current, *previous;
     current = previous = head;
@@ -72,7 +71,7 @@ void lin_list_remove_tail(Node* head) {
     free(current);
 }
 
-/* removes the first node with data identical to given from linked list and returns a head */
+/* removes the first node with data identical to given from a linked list and returns the head node */
 Node* lin_list_remove(Node* head, void* data) {
     Node *current, *previous;
     current = previous = head;
@@ -99,10 +98,11 @@ Node* lin_list_remove(Node* head, void* data) {
     return head;
 }
 
-/* completely deallocates linked list */
+/* completely deallocates a linked list */
 void lin_list_dealloc(Node* head) {
     if (head->next != NULL) {
         lin_list_dealloc(head->next);
     }
+
     free(head);
 }

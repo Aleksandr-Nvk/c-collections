@@ -7,11 +7,11 @@
 typedef struct Stack {
     void** array;
 
-    size_t count;            /* amount of items currently stored in array */
-    size_t capacity;            /* possible amount of items stored in the array (can be expanded) */
+    size_t count;            /* amount of items currently stored in stack */
+    size_t capacity;            /* possible amount of items stored in stack (can be expanded) */
 } Stack;
 
-/* creates a new stack with zero capacity and returns it */
+/* returns a new blank stack */
 Stack stack_new(void) {
     Stack new_stack = {NULL, 0, 0};
     return new_stack;
@@ -19,10 +19,10 @@ Stack stack_new(void) {
 
 /* adds item to the top of stack */
 void push(Stack* stack, void* item) {
-    if (stack->capacity == 0) {          /* allocate initial 4 bytes if empty */
+    if (stack->capacity == 0) {          /* set default capacity if list is empty */
         stack->capacity = MIN_CAPACITY;
         stack->array = malloc(stack->capacity * sizeof(void*));
-    } else if (stack->count == stack->capacity) {         /* double the size if needed */
+    } else if (stack->count == stack->capacity) {         /* double capacity of list if more space is needed */
         stack->capacity *= 2;
         stack->array = realloc(stack->array, stack->capacity * sizeof(void*));
     }
@@ -30,7 +30,7 @@ void push(Stack* stack, void* item) {
     stack->array[stack->count++] = item;
 }
 
-/* removes the last item from stack and returns it */
+/* returns the last item from stack, removes it from stack */
 void* stack_pop(Stack* stack) {
     if (stack->count != 0) {
         return stack->array[--stack->count];
@@ -50,7 +50,7 @@ void* stack_peek(Stack* stack) {
     return NULL;
 }
 
-/* removes all items from stack, keeps capacity unchanged */
+/* removes all items from a list (capacity is unchanged) */
 void stack_clear(Stack* stack) {
     stack->count = 0;
 }
