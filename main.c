@@ -1,10 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "list.h"
-#include "linked_list.h"
-#include "stack.h"
-#include "queue.h"
-#include "dictionary.h"
+#include "collections.h"
 
 /* prints linked list content recursively */
 void lin_list_print(Node* head) {

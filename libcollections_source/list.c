@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 
 #define MIN_CAPACITY 4  /* default capacity of an empty list when you add the first item to it */
 

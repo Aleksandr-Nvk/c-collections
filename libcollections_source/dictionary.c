@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 
 #define MIN_CAPACITY 4  /* min capacity blank internal arrays are expanded to when You add an item to them */
 
@@ -16,7 +17,7 @@ typedef struct Dictionary {
     size_t count;            /* amount of key-value pairs currently stored in dictionary */
 } Dictionary;
 
-Dictionary dict_new() {
+Dictionary dict_new(void) {
     Dictionary new_dictionary = {malloc(10 * sizeof(KeyValuePair*)),
                                  calloc(10, sizeof(void**)),
                                  calloc(10, sizeof(size_t)),0};
@@ -63,6 +64,7 @@ void* dict_resolve(Dictionary* dictionary, void* key) {
     return NULL;
 }
 
+/* removes a value bond to a key from a dictionary */
 void dict_remove(Dictionary* dictionary, void* key) {
     size_t index = (long)key % 10;
     KeyValuePair* array = dictionary->array[index];
