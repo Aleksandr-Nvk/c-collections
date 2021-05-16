@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MIN_CAPACITY 4  /* min capacity an array is expanded to when You add an item to a zero-capacity queue */
+#define MIN_CAPACITY 4  /* default capacity of an empty queue when you add the first item to it */
 
 /* basic queue structure, a wrapping around an array */
 typedef struct Queue {

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MIN_CAPACITY 4  /* min capacity an array is expanded to when You add an item to a zero-capacity stack */
+#define MIN_CAPACITY 4  /* default capacity of an empty stack when you add the first item to it */
 
 /* basic stack structure, a wrapping around an array */
 typedef struct Stack {
@@ -18,7 +18,7 @@ Stack stack_new(void) {
 }
 
 /* adds item to the top of stack */
-void push(Stack* stack, void* item) {
+void stack_push(Stack* stack, void* item) {
     if (stack->capacity == 0) {          /* set default capacity if list is empty */
         stack->capacity = MIN_CAPACITY;
         stack->array = malloc(stack->capacity * sizeof(void*));

@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define MIN_CAPACITY 4  /* min capacity blank internal arrays are expanded to when You add an item to them */
+#define MIN_CAPACITY 4  /* default capacity of internal dictionary arrays when you add the first items to them */
 
 typedef struct KeyValuePair {
     void* key;
@@ -19,7 +19,7 @@ typedef struct Dictionary {
 
 Dictionary dict_new(void) {
     Dictionary new_dictionary = {malloc(10 * sizeof(KeyValuePair*)),
-                                 calloc(10, sizeof(void**)),
+                                 calloc(10, sizeof(size_t)),
                                  calloc(10, sizeof(size_t)),0};
 
     return new_dictionary;
