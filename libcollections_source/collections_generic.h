@@ -22,7 +22,7 @@ type##List type##_list_new(void) { \
 } \
 \
 /* returns an item from a list by an index (or NULL if the index is out of range) */ \
-type list_of_index(type##List* list, size_t index) { \
+type type##_list_of_index(type##List* list, size_t index) { \
     if (index < list->count || index >= 0) { \
         return list->array[index]; \
     } \
@@ -33,7 +33,7 @@ type list_of_index(type##List* list, size_t index) { \
 } \
 \
 /* adds an item to a list */ \
-void list_add(type##List* list, type item) { \
+void type##_list_add(type##List* list, type item) { \
     if (list->capacity == 0) { \
         list->capacity = MIN_LIST_CAPACITY; \
         list->array = malloc(list->capacity * sizeof(type)); \
@@ -46,7 +46,7 @@ void list_add(type##List* list, type item) { \
 } \
 \
 /* removes the first occurrence of given item from a list */ \
-void list_remove(type##List* list, type item) { \
+void type##_list_remove(type##List* list, type item) { \
     for (int i = 0; i < list->count; ++i) { \
         if (list->array[i] == item) { \
             /* Defragmentation of the list */ \
@@ -60,12 +60,12 @@ void list_remove(type##List* list, type item) { \
 } \
 \
 /* removes all items from a list (capacity is unchanged) */ \
-void list_clear(type##List* list) { \
+void type##_list_clear(type##List* list) { \
     list->count = 0; \
 } \
 \
 /* completely deallocates a list */ \
-void list_dealloc(type##List* list) { \
+void type##_list_dealloc(type##List* list) { \
     list->count = 0; \
     list->capacity = 0; \
 \
