@@ -6,6 +6,7 @@
 #define MIN_QUEUE_CAPACITY 4  /* default capacity of an empty queue when you add the first item to it */
 #define MIN_DICTIONARY_CAPACITY 4  /* default capacity of internal dictionary arrays when you add the first items to them */
 
+/* generates API to work with lists of 'type' and use 'compare_func' in comparisons */
 #define GENERATE_LIST_OF_TYPE(type, compare_func) \
 /* basic list structure, a wrapping around an array */ \
 typedef struct type##List { \

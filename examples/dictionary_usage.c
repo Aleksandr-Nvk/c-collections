@@ -5,9 +5,7 @@ int dict_equals(float first, float second) {
     return fabsf(first - second) <= 0.01f;
 }
 
-int (*dict_comp_func)(float, float) = &dict_equals;
-
-GENERATE_DICTIONARY_OF_TYPE(int, float, dict_comp_func)
+GENERATE_DICTIONARY_OF_TYPE(int, float, &dict_equals)
 
 /* dictionary usage: building tables with data bond to keys */
 void dictionary_execute_example(void) {
