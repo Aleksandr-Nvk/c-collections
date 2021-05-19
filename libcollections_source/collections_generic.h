@@ -326,7 +326,7 @@ typedef struct key_type##value_type##Dictionary { \
     size_t count;            /* amount of key-value pairs currently stored in dictionary */ \
 } key_type##value_type##Dictionary; \
 \
-key_type##value_type##Dictionary key_type##_value_type##_dict_new(void) { \
+key_type##value_type##Dictionary key_type##value_type##_dict_new(void) { \
     key_type##value_type##Dictionary new_dictionary = {malloc(10 * sizeof(key_type##value_type##KeyValuePair*)), \
                                  calloc(10, sizeof(size_t)), \
                                  calloc(10, sizeof(size_t)),0}; \
@@ -335,7 +335,7 @@ key_type##value_type##Dictionary key_type##_value_type##_dict_new(void) { \
 } \
 \
 /* adds a key-value pair to a dictionary */ \
-void key_type##_value_type##_dict_add(key_type##value_type##Dictionary* dictionary, key_type key, value_type value) { \
+void key_type##value_type##_dict_add(key_type##value_type##Dictionary* dictionary, key_type key, value_type value) { \
     size_t index = (long)key % 10;          /* reduce the amount of indices */ \
 \
     if (dictionary->capacities[index] == 0) { \
@@ -359,7 +359,7 @@ void key_type##_value_type##_dict_add(key_type##value_type##Dictionary* dictiona
 } \
 \
 /* returns a value by its key */ \
-value_type key_type##_value_type##_dict_resolve(key_type##value_type##Dictionary* dictionary, key_type key) { \
+value_type key_type##value_type##_dict_resolve(key_type##value_type##Dictionary* dictionary, key_type key) { \
     size_t index = (long)key % 10; \
     key_type##value_type##KeyValuePair* array = dictionary->array[index]; \
 \
@@ -375,7 +375,7 @@ value_type key_type##_value_type##_dict_resolve(key_type##value_type##Dictionary
 } \
 \
 /* removes a value bond to a key from a dictionary */ \
-void key_type##_value_type##_dict_remove(key_type##value_type##Dictionary* dictionary, key_type key) { \
+void key_type##value_type##_dict_remove(key_type##value_type##Dictionary* dictionary, key_type key) { \
     size_t index = (long)key % 10; \
     key_type##value_type##KeyValuePair* array = dictionary->array[index]; \
 \
@@ -393,7 +393,7 @@ void key_type##_value_type##_dict_remove(key_type##value_type##Dictionary* dicti
 } \
 \
 /* removes all items from a dictionary (capacity is unchanged) */ \
-void key_type##_value_type##_dict_clear(key_type##value_type##Dictionary* dictionary) { \
+void key_type##value_type##_dict_clear(key_type##value_type##Dictionary* dictionary) { \
     for (int i = 0; i < 10; ++i) { \
         dictionary->counts[i] = 0; \
     } \
@@ -401,8 +401,8 @@ void key_type##_value_type##_dict_clear(key_type##value_type##Dictionary* dictio
 } \
 \
 /* completely deallocates dictionary */ \
-void key_type##_value_type##_dict_dealloc(key_type##value_type##Dictionary* dictionary) { \
-    key_type##_value_type##_dict_clear(dictionary); \
+void key_type##value_type##_dict_dealloc(key_type##value_type##Dictionary* dictionary) { \
+    key_type##value_type##_dict_clear(dictionary); \
 \
     for (int i = 0; i < 10; ++i) { \
         dictionary->capacities[i] = 0; \
