@@ -6,7 +6,7 @@
 #define MIN_QUEUE_CAPACITY 4  /* default capacity of an empty queue when you add the first item to it */
 #define MIN_DICTIONARY_CAPACITY 4  /* default capacity of internal dictionary arrays when you add the first items to them */
 
-#define GENERATE_LIST_OF_TYPE(type) \
+#define GENERATE_LIST_OF_TYPE(type, compare_func) \
 /* basic list structure, a wrapping around an array */ \
 typedef struct type##List { \
     type* array; \
@@ -22,14 +22,14 @@ type##List type##_list_new(void) { \
 } \
 \
 /* returns an item from a list by an index (or NULL if the index is out of range) */ \
-type type##_list_of_index(type##List* list, size_t index) { \
+type* type##_list_of_index(type##List* list, size_t index) { \
     if (index < list->count || index >= 0) { \
-        return list->array[index]; \
+        return &list->array[index]; \
     } \
 \
     /* Throw the following error if the index is out of range */ \
     perror("\nINDEX WAS OUT OF RANGE"); \
-    return 0; \
+    return NULL; \
 } \
 \
 /* adds an item to a list */ \
@@ -48,7 +48,7 @@ void type##_list_add(type##List* list, type item) { \
 /* removes the first occurrence of given item from a list */ \
 void type##_list_remove(type##List* list, type item) { \
     for (int i = 0; i < list->count; ++i) { \
-        if (list->array[i] == item) { \
+        if ((*compare_func)(list->array[i], item)) { \
             /* Defragmentation of the list */ \
             for (int k = i; k < list->count - 1; ++k) { \
                 list->array[k] = list->array[k + 1]; \
@@ -72,7 +72,7 @@ void type##_list_dealloc(type##List* list) { \
     free(list->array); \
 } \
 
-#define GENERATE_LINKED_LIST_OF_TYPE(type) \
+#define GENERATE_LINKED_LIST_OF_TYPE(type, compare_func) \
 /* basic node structure */ \
 typedef struct type##Node { \
     type data; \
@@ -150,7 +150,7 @@ type##Node* type##_lin_list_remove(type##Node* head, type data) { \
     current = previous = head; \
 \
     while (current != NULL) { \
-        if (current->data == data) { \
+        if ((*compare_func)(current->data, data)) { \
             if (current == head) { \
                 return type##_lin_list_remove_head(head); \
             } else if (current->next == NULL) { \
@@ -213,9 +213,9 @@ type type##_stack_pop(type##Stack* stack) { \
     if (stack->count != 0) { \
         return stack->array[--stack->count]; \
     } \
-\
+    type result = {0}; \
     perror("\nSTACK IS EMPTY"); \
-    return 0; \
+    return result; \
 } \
 \
 /* returns the last item from stack, keeps it in stack */ \
@@ -223,9 +223,9 @@ type type##_stack_peek(type##Stack* stack) { \
     if (stack->count != 0) { \
         return stack->array[stack->count - 1]; \
     } \
-\
+    type result = {0}; \
     perror("\nSTACK IS EMPTY"); \
-    return 0; \
+    return result; \
 } \
 \
 /* removes all items from a list (capacity is unchanged) */ \
@@ -280,8 +280,9 @@ type type##_queue_dequeue(type##Queue* queue) { \
         return next; \
     } \
 \
+    type result = {0}; \
     perror("\nQUEUE IS EMPTY"); \
-    return 0; \
+    return result; \
 } \
 \
 /* returns the next waiting item from queue, keeps it in queue */ \
@@ -290,8 +291,9 @@ type type##_queue_peek(type##Queue* queue) { \
         return queue->array[0]; \
     } \
 \
+    type result = {0}; \
     perror("\nQUEUE IS EMPTY"); \
-    return 0; \
+    return result; \
 } \
 \
 /* removes all items from a list (capacity is unchanged) */ \
@@ -307,7 +309,7 @@ void type##_queue_dealloc(type##Queue* queue) { \
     free(queue->array); \
 } \
 
-#define GENERATE_DICTIONARY_OF_TYPE(key_type, value_type) \
+#define GENERATE_DICTIONARY_OF_TYPE(key_type, value_type, compare_func) \
 typedef struct key_type##value_type##KeyValuePair { \
     key_type key; \
     value_type value; \
@@ -343,7 +345,7 @@ void key_type##_value_type##_dict_add(key_type##value_type##Dictionary* dictiona
     } \
 \
     for (int i = 0; i < dictionary->counts[index]; ++i) { \
-        if (dictionary->array[index][i].key == key) { \
+        if ((*compare_func)(dictionary->array[index][i].key, key)) { \
             perror("\nITEM WITH SUCH KEY ALREADY EXISTS"); \
             return; \
         } \
@@ -360,13 +362,14 @@ value_type key_type##_value_type##_dict_resolve(key_type##value_type##Dictionary
     key_type##value_type##KeyValuePair* array = dictionary->array[index]; \
 \
     for (int i = 0; i < dictionary->counts[index]; ++i) { \
-        if (array[i].key == key) { \
+        if ((*compare_func)(array[i].key, key)) { \
             return array[i].value; \
         } \
     } \
 \
+    value_type result = {0}; \
     perror("\nNO ITEM WITH SUCH KEY FOUND"); \
-    return 0; \
+    return result; \
 } \
 \
 /* removes a value bond to a key from a dictionary */ \
@@ -375,7 +378,7 @@ void key_type##_value_type##_dict_remove(key_type##value_type##Dictionary* dicti
     key_type##value_type##KeyValuePair* array = dictionary->array[index]; \
 \
     for (int i = 0; i < dictionary->counts[index]; ++i) { \
-        if (array[i].key == key) { \
+        if ((*compare_func)(array[i].key, key)) { \
             for (int k = i; k < dictionary->counts[index] - 1; ++k) { \
                 array[i] = array[i + 1]; \
             } \

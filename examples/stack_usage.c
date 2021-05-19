@@ -1,6 +1,11 @@
 #include "collections_generic.h"
 #include <stdio.h>
 
+typedef struct Type {
+    int data;
+} Type;
+
+GENERATE_STACK_OF_TYPE(Type)
 GENERATE_STACK_OF_TYPE(char)
 
 /* stack usage: reversing input */

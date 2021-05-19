@@ -1,6 +1,13 @@
 #include "collections_generic.h"
+#include <math.h>
 
-GENERATE_DICTIONARY_OF_TYPE(int, float)
+int dict_equals(float first, float second) {
+    return fabsf(first - second) <= 0.01f;
+}
+
+int (*dict_comp_func)(float, float) = &dict_equals;
+
+GENERATE_DICTIONARY_OF_TYPE(int, float, dict_comp_func)
 
 /* dictionary usage: building tables with data bond to keys */
 void dictionary_execute_example(void) {
