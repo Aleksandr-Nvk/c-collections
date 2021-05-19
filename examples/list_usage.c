@@ -27,17 +27,17 @@ void list_execute_example(void) {
     printf("\n*** INITIAL ***\n");
     print_list(list);
 
-    Employee_list_add(&list, chandler);             /* 3. add copy of 'chandler' to list */
-    Employee_list_add(&list, phoebe);           /* 3. add copy of 'phoebe' to list */
-    Employee_list_add(&list, rachel);           /* 3. add copy of 'rachel' to list */
-    Employee_list_add(&list, ross);             /* 3. add copy of 'ross' to list */
+    Employee_list_add(&list, chandler);             /* 3. add copy of 'chandler' to the list */
+    Employee_list_add(&list, phoebe);           /* 3. add copy of 'phoebe' to the list */
+    Employee_list_add(&list, rachel);           /* 3. add copy of 'rachel' to the list */
+    Employee_list_add(&list, ross);             /* 3. add copy of 'ross' to the list */
 
     printf("\n\n*** ADDED ***\n");
     print_list(list);
 
     Employee_list_remove(&list, chandler);          /* 3. remove item identical to 'chandler' */
     ross.salary = 50000.0f;
-    Employee_list_remove(&list, ross);          /* 3. removal fails because 'ross' in list has a different salary */
+    Employee_list_remove(&list, ross);          /* 3. removal fails because 'ross' in the list has a different salary */
 
     printf("\n\n*** REMOVED ***\n");
     print_list(list);

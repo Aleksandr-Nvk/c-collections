@@ -2,7 +2,7 @@
 #include <string.h>
 #include "collections_generic.h"
 
-typedef char* string;
+typedef char* string;           /* a wrap around a pointer to make it work with GENERATE_XXX macro */
 
 int lin_list_equals(string first, string second);
 
@@ -49,7 +49,7 @@ void linked_list_execute_example(void) {
     printf("\n\n*** REMOVED (LAST) ***\n");
     print_lin_list(head);
 
-    string_lin_list_dealloc(head);              /* 4. deallocate the list (to avoid memory leak) */
+    string_lin_list_dealloc(head);              /* 4. deallocate the linked list (to avoid memory leak) */
 }
 
 /* function used to compare objects in list */
