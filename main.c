@@ -7,15 +7,15 @@ int main(void) {
     list_execute_example();
 
     printf("\n\n***** LINKED LIST EXAMPLE *****\n");
-    linked_list_execute_example();*/
+    linked_list_execute_example();
 
     printf("\n\n***** STACK EXAMPLE *****\n");
-    stack_execute_example();
+    stack_execute_example();*/
 
-    /*printf("\n\n***** QUEUE EXAMPLE *****\n");
+    printf("\n\n***** QUEUE EXAMPLE *****\n");
     queue_execute_example();
 
-    printf("\n\n***** DICTIONARY EXAMPLE *****\n");
+    /*printf("\n\n***** DICTIONARY EXAMPLE *****\n");
     dictionary_execute_example();*/
 
     return 0;

@@ -58,8 +58,8 @@ int list_equals(Employee first, Employee second) {
 /* prints every item with description, count and capacity */
 void print_list(EmployeeList list) {
     for (int i = 0; i < list.count; ++i) {
-        Employee* employee = Employee_list_of_index(&list, i);    /* 3. resolve POINTER to item by index */
-        printf("\n%s earns $%.0f", employee->name, employee->salary);
+        Employee employee = Employee_list_of_index(&list, i);    /* 3. resolve POINTER to item by index */
+        printf("\n%s earns $%.0f", employee.name, employee.salary);
     }
 
     printf("\n\nCount: %zu", list.count);

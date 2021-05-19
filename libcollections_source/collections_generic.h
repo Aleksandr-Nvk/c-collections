@@ -23,14 +23,15 @@ type##List type##_list_new(void) { \
 } \
 \
 /* returns an item from a list by an index (or NULL if the index is out of range) */ \
-type* type##_list_of_index(type##List* list, size_t index) { \
+type type##_list_of_index(type##List* list, size_t index) { \
     if (index < list->count || index >= 0) { \
-        return &list->array[index]; \
+        return list->array[index]; \
     } \
 \
     /* Throw the following error if the index is out of range */ \
+    type result = {0}; \
     perror("\nINDEX WAS OUT OF RANGE"); \
-    return NULL; \
+    return result; \
 } \
 \
 /* adds an item to a list */ \
