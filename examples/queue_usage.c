@@ -1,24 +1,46 @@
-#include "collections.h"
 #include <stdio.h>
+#include <time.h>
+#include "collections_generic.h"
+
+typedef char* string;
+
+void suspend(double seconds);
+
+GENERATE_QUEUE_OF_TYPE(string)              /* 1. generate API for queue */
 
 /* queue usage: queueing objects */
 void queue_execute_example(void) {
-    char* people[] = {"Monica", "Chandler", "Rachel", "Phoebe", "Joey", "Ross"};
-    Queue queue = queue_new();
+    stringQueue queue = string_queue_new();             /* 2. create a new queue */
+    string customers[] = {"Helen", "Max", "Alex", "Ihor"};
 
-    printf("\nCurrent queue: ");
-    for (int i = 0; i < sizeof(people) / sizeof(people[0]); ++i) {
-        printf("%s ", people[i]);
-        queue_enqueue(&queue, people[i]);
+    for (int i = 0; i < sizeof(customers) / sizeof(customers[0]); ++i) {
+        string_queue_enqueue(&queue, customers[i]);             /* 3. add new items to the queue */
     }
 
-    queue_enqueue(&queue, queue_dequeue(&queue));           /* re-enqueue first two people */
-    queue_enqueue(&queue, queue_dequeue(&queue));
+    int portions = 0;
+    while (queue.count > 0) {
+        string current = string_queue_dequeue(&queue);      /* 3. get the next item, remove it from the queue */
+        string next = string_queue_peek(&queue);            /* 3. get the next item, keep it in the queue */
+        printf("\n%s got an ice-cream. %s is next!", current, next);
+        string_queue_enqueue(&queue, next);             /* 3. enqueue an item */
 
-    printf("\nCurrent queue: ");
-    for (int i = 0; i < queue.count; ++i) {
-        printf("%s ", (char*)queue_dequeue(&queue));
+        suspend(1.5);
+
+        ++portions;
+
+        if (portions == 6) {    /* isn't converted into for loop for the sake of usage of string_queue_clear() */
+            string_queue_clear(&queue);             /* 3. remove all items */
+        }
     }
 
-    queue_dealloc(&queue);              /* mandatory deallocation of the queue */
+    string_queue_dealloc(&queue);           /* 4. deallocate the queue (to avoid memory leak) */
+}
+
+void suspend(double seconds) {
+    if (seconds <= 0) {
+        return;
+    }
+
+    clock_t start = clock();
+    while ((double)(clock() - start) / (double)CLOCKS_PER_SEC < seconds) { }
 }
