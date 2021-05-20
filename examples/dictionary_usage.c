@@ -4,7 +4,7 @@ int dict_equals(int first, int second);
 
 GENERATE_DICTIONARY_OF_TYPE(int, float, &dict_equals)           /* 1. generate API for dictionary */
 
-/* dictionary usage: building tables with data bond to keys */
+/* dictionary usage: building tables with data bound to keys */
 void dictionary_execute_example(void) {
     int age;
     float height;

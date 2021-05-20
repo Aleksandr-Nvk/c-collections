@@ -374,7 +374,7 @@ value_type key_type##value_type##_dict_resolve(key_type##value_type##Dictionary*
     return result; \
 } \
 \
-/* removes a value bond to a key from a dictionary */ \
+/* removes a value bound to a key from a dictionary */ \
 void key_type##value_type##_dict_remove(key_type##value_type##Dictionary* dictionary, key_type key) { \
     size_t index = (long)key % 10; \
     key_type##value_type##KeyValuePair* array = dictionary->array[index]; \

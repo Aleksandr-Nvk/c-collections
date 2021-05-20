@@ -1,10 +1,8 @@
 #include <stdio.h>
-#include <time.h>
+#include <unistd.h>
 #include "collections_generic.h"
 
 typedef char* string;
-
-void suspend(double seconds);
 
 GENERATE_QUEUE_OF_TYPE(string)              /* 1. generate API for queue */
 
@@ -24,7 +22,7 @@ void queue_execute_example(void) {
         printf("\n%s got an ice-cream. %s is next!", current, next);
         string_queue_enqueue(&queue, next);             /* 3. enqueue an item */
 
-        suspend(1.5);
+        sleep(1);
 
         ++portions;
 
@@ -34,13 +32,4 @@ void queue_execute_example(void) {
     }
 
     string_queue_dealloc(&queue);           /* 4. deallocate the queue (to avoid memory leak) */
-}
-
-void suspend(double seconds) {
-    if (seconds <= 0) {
-        return;
-    }
-
-    clock_t start = clock();
-    while ((double)(clock() - start) / (double)CLOCKS_PER_SEC < seconds) { }
 }
