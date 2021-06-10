@@ -18,15 +18,25 @@ typedef struct Dictionary {
 } Dictionary;
 
 Dictionary dict_new(void) {
-    Dictionary new_dictionary = {malloc(10 * sizeof(KeyValuePair*)),
-                                 calloc(10, sizeof(size_t)),
-                                 calloc(10, sizeof(size_t)),0};
+    size_t pair, other;
+    pair = sizeof(KeyValuePair*);
+    other = sizeof(size_t);
+    Dictionary new_dictionary = {malloc(10 * pair),calloc(10, other),calloc(10, other),0};
 
     return new_dictionary;
 }
 
 /* adds a key-value pair to a dictionary */
 void dict_add(Dictionary* dictionary, void* key, void* value) {
+    if (dictionary == NULL) {
+        perror("\nDICTIONARY REFERENCE WAS NULL");
+        return;
+    }
+    if (key == NULL) {
+        perror("\nKEY WAS NULL");
+        return;
+    }
+
     size_t index = (long)key % 10;          /* reduce the amount of indices */
 
     if (dictionary->capacities[index] == 0) {
@@ -51,6 +61,15 @@ void dict_add(Dictionary* dictionary, void* key, void* value) {
 
 /* returns a value by its key */
 void* dict_resolve(Dictionary* dictionary, void* key) {
+    if (dictionary == NULL) {
+        perror("\nDICTIONARY REFERENCE WAS NULL");
+        return NULL;
+    }
+    if (key == NULL) {
+        perror("\nKEY WAS NULL");
+        return NULL;
+    }
+
     size_t index = (long)key % 10;
     KeyValuePair* array = dictionary->array[index];
 
@@ -66,6 +85,15 @@ void* dict_resolve(Dictionary* dictionary, void* key) {
 
 /* removes a value bond to a key from a dictionary */
 void dict_remove(Dictionary* dictionary, void* key) {
+    if (dictionary == NULL) {
+        perror("\nDICTIONARY REFERENCE WAS NULL");
+        return;
+    }
+    if (key == NULL) {
+        perror("\nKEY WAS NULL");
+        return;
+    }
+
     size_t index = (long)key % 10;
     KeyValuePair* array = dictionary->array[index];
 
@@ -84,6 +112,11 @@ void dict_remove(Dictionary* dictionary, void* key) {
 
 /* removes all items from a dictionary (capacity is unchanged) */
 void dict_clear(Dictionary* dictionary) {
+    if (dictionary == NULL) {
+        perror("\nDICTIONARY REFERENCE WAS NULL");
+        return;
+    }
+
     for (int i = 0; i < 10; ++i) {
         dictionary->counts[i] = 0;
     }
@@ -92,6 +125,11 @@ void dict_clear(Dictionary* dictionary) {
 
 /* completely deallocates dictionary */
 void dict_dealloc(Dictionary* dictionary) {
+    if (dictionary == NULL) {
+        perror("\nDICTIONARY REFERENCE WAS NULL");
+        return;
+    }
+
     dict_clear(dictionary);
 
     for (int i = 0; i < 10; ++i) {

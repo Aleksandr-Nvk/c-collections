@@ -19,6 +19,10 @@ List list_new(void) {
 
 /* returns an item from a list by an index (or NULL if the index is out of range) */
 void* list_of_index(List* list, size_t index) {
+    if (list == NULL) {
+        perror("\nLIST REFERENCE WAS NULL");
+        return NULL;
+    }
     if (index < list->count || index >= 0) {
         return list->array[index];
     }
@@ -30,6 +34,10 @@ void* list_of_index(List* list, size_t index) {
 
 /* adds an item to a list */
 void list_add(List* list, void* item) {
+    if (list == NULL) {
+        perror("\nLIST REFERENCE WAS NULL");
+        return;
+    }
     if (list->capacity == 0) {
         list->capacity = MIN_CAPACITY;          /* set default capacity if list is empty */
         list->array = malloc(list->capacity * sizeof(void*));
@@ -43,6 +51,11 @@ void list_add(List* list, void* item) {
 
 /* removes the first occurrence of given item from a list */
 void list_remove(List* list, void* item) {
+    if (list == NULL) {
+        perror("\nLIST REFERENCE WAS NULL");
+        return;
+    }
+
     for (int i = 0; i < list->count; ++i) {
         if (list->array[i] == item) {
             /* Defragmentation of the list */
@@ -57,11 +70,21 @@ void list_remove(List* list, void* item) {
 
 /* removes all items from a list (capacity is unchanged) */
 void list_clear(List* list) {
+    if (list == NULL) {
+        perror("\nLIST REFERENCE WAS NULL");
+        return;
+    }
+
     list->count = 0;
 }
 
 /* completely deallocates a list */
 void list_dealloc(List* list) {
+    if (list == NULL) {
+        perror("\nLIST REFERENCE WAS NULL");
+        return;
+    }
+
     list->count = 0;
     list->capacity = 0;
 

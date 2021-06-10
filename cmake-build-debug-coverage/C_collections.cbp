@@ -44,6 +44,9 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/Users/alex/Documents/C collections/collections_source"/>
+					<Add directory="/Users/alex/Documents/C collections/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1"/>
 					<Add directory="/usr/local/include"/>
 					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/12.0.0/include"/>
 					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
@@ -64,6 +67,9 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/Users/alex/Documents/C collections/collections_source"/>
+					<Add directory="/Users/alex/Documents/C collections/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1"/>
 					<Add directory="/usr/local/include"/>
 					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/12.0.0/include"/>
 					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
@@ -78,19 +84,43 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/alex/Documents/C collections/dictionary.h">
+		<Unit filename="/Users/alex/Documents/C collections/collections_source/collections_generic.h">
 			<Option target="Main"/>
 		</Unit>
-		<Unit filename="/Users/alex/Documents/C collections/linked_list.h">
+		<Unit filename="/Users/alex/Documents/C collections/collections_source/dictionary.c">
+			<Option target="Main"/>
+		</Unit>
+		<Unit filename="/Users/alex/Documents/C collections/collections_source/linked_list.c">
+			<Option target="Main"/>
+		</Unit>
+		<Unit filename="/Users/alex/Documents/C collections/collections_source/list.c">
+			<Option target="Main"/>
+		</Unit>
+		<Unit filename="/Users/alex/Documents/C collections/collections_source/queue.c">
+			<Option target="Main"/>
+		</Unit>
+		<Unit filename="/Users/alex/Documents/C collections/collections_source/stack.c">
+			<Option target="Main"/>
+		</Unit>
+		<Unit filename="/Users/alex/Documents/C collections/examples/dictionary_usage.c">
+			<Option target="Main"/>
+		</Unit>
+		<Unit filename="/Users/alex/Documents/C collections/examples/linked_list_usage.c">
+			<Option target="Main"/>
+		</Unit>
+		<Unit filename="/Users/alex/Documents/C collections/examples/list_usage.c">
+			<Option target="Main"/>
+		</Unit>
+		<Unit filename="/Users/alex/Documents/C collections/examples/queue_usage.c">
+			<Option target="Main"/>
+		</Unit>
+		<Unit filename="/Users/alex/Documents/C collections/examples/stack_usage.c">
+			<Option target="Main"/>
+		</Unit>
+		<Unit filename="/Users/alex/Documents/C collections/examples_declarations.h">
 			<Option target="Main"/>
 		</Unit>
 		<Unit filename="/Users/alex/Documents/C collections/main.c">
-			<Option target="Main"/>
-		</Unit>
-		<Unit filename="/Users/alex/Documents/C collections/queue.h">
-			<Option target="Main"/>
-		</Unit>
-		<Unit filename="/Users/alex/Documents/C collections/stack.h">
 			<Option target="Main"/>
 		</Unit>
 		<Unit filename="/Users/alex/Documents/C collections/CMakeLists.txt">

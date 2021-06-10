@@ -19,6 +19,11 @@ Stack stack_new(void) {
 
 /* adds item to the top of stack */
 void stack_push(Stack* stack, void* item) {
+    if (stack == NULL) {
+        perror("\nSTACK REFERENCE WAS NULL");
+        return;
+    }
+
     if (stack->capacity == 0) {          /* set default capacity if list is empty */
         stack->capacity = MIN_CAPACITY;
         stack->array = malloc(stack->capacity * sizeof(void*));
@@ -32,6 +37,11 @@ void stack_push(Stack* stack, void* item) {
 
 /* returns the last item from stack, removes it from stack */
 void* stack_pop(Stack* stack) {
+    if (stack == NULL) {
+        perror("\nSTACK REFERENCE WAS NULL");
+        return NULL;
+    }
+
     if (stack->count != 0) {
         return stack->array[--stack->count];
     }
@@ -42,6 +52,11 @@ void* stack_pop(Stack* stack) {
 
 /* returns the last item from stack, keeps it in stack */
 void* stack_peek(Stack* stack) {
+    if (stack == NULL) {
+        perror("\nSTACK REFERENCE WAS NULL");
+        return NULL;
+    }
+
     if (stack->count != 0) {
         return stack->array[stack->count - 1];
     }
@@ -52,11 +67,21 @@ void* stack_peek(Stack* stack) {
 
 /* removes all items from a list (capacity is unchanged) */
 void stack_clear(Stack* stack) {
+    if (stack == NULL) {
+        perror("\nSTACK REFERENCE WAS NULL");
+        return;
+    }
+
     stack->count = 0;
 }
 
 /* completely deallocates stack */
 void stack_dealloc(Stack* stack) {
+    if (stack == NULL) {
+        perror("\nSTACK REFERENCE WAS NULL");
+        return;
+    }
+
     stack->count = 0;
     stack->capacity = 0;
 

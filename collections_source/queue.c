@@ -19,6 +19,11 @@ Queue queue_new(void) {
 
 /* adds an item to the end of queue for pending */
 void queue_enqueue(Queue* queue, void* item) {
+    if (queue == NULL) {
+        perror("\nQUEUE REFERENCE WAS NULL");
+        return;
+    }
+
     if (queue->capacity == 0) {          /* set default capacity if list is empty */
         queue->capacity = MIN_CAPACITY;
         queue->array = malloc(queue->capacity * sizeof(void*));
@@ -32,6 +37,11 @@ void queue_enqueue(Queue* queue, void* item) {
 
 /* returns the next waiting item from queue, removes it from queue */
 void* queue_dequeue(Queue* queue) {
+    if (queue == NULL) {
+        perror("\nQUEUE REFERENCE WAS NULL");
+        return NULL;
+    }
+
     if (queue->count != 0) {
         void* next = queue->array[0];
         for (int i = 1; i < queue->count; ++i) {
@@ -47,6 +57,11 @@ void* queue_dequeue(Queue* queue) {
 
 /* returns the next waiting item from queue, keeps it in queue */
 void* queue_peek(Queue* queue) {
+    if (queue == NULL) {
+        perror("\nQUEUE REFERENCE WAS NULL");
+        return NULL;
+    }
+
     if (queue->count != 0) {
         return queue->array[0];
     }
@@ -57,11 +72,21 @@ void* queue_peek(Queue* queue) {
 
 /* removes all items from a list (capacity is unchanged) */
 void queue_clear(Queue* queue) {
+    if (queue == NULL) {
+        perror("\nQUEUE REFERENCE WAS NULL");
+        return;
+    }
+
     queue->count = 0;
 }
 
 /* completely deallocates queue */
 void queue_dealloc(Queue* queue) {
+    if (queue == NULL) {
+        perror("\nQUEUE REFERENCE WAS NULL");
+        return;
+    }
+
     queue->count = 0;
     queue->capacity = 0;
 

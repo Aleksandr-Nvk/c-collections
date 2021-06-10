@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 
 /* basic node structure */
 typedef struct Node {
@@ -17,6 +18,10 @@ Node* lin_list_new_head(void* data) {
 
 /* returns the last node in a linked list */
 Node* lin_list_get_tail(Node* head) {
+    if (head == NULL) {
+        perror("\nHEAD REFERENCE WAS NULL");
+        return NULL;
+    }
     if (head->next != NULL) {
         return lin_list_get_tail(head->next);
     }
@@ -26,6 +31,11 @@ Node* lin_list_get_tail(Node* head) {
 
 /* appends a new node with given data to a linked list */
 void lin_list_append(Node* head, void* data) {
+    if (head == NULL) {
+        perror("\nHEAD REFERENCE WAS NULL");
+        return;
+    }
+
     Node *tail, *new_node;
     tail = lin_list_get_tail(head);
     new_node = malloc(sizeof(Node));        /*
@@ -41,6 +51,11 @@ void lin_list_append(Node* head, void* data) {
 
 /* prepends a new head with given data to a linked list and returns it */
 Node* lin_list_prepend(Node* head, void* data) {
+    if (head == NULL) {
+        perror("\nHEAD REFERENCE WAS NULL");
+        return NULL;
+    }
+
     Node* new_head = malloc(sizeof(Node));
 
     new_head->data = data;
@@ -51,6 +66,11 @@ Node* lin_list_prepend(Node* head, void* data) {
 
 /* removes head node from a linked list and returns a new head (or NULL if head was the only node) */
 Node* lin_list_remove_head(Node* head) {
+    if (head == NULL) {
+        perror("\nHEAD REFERENCE WAS NULL");
+        return NULL;
+    }
+
     Node* new_head = head->next;
     free(head);
 
@@ -59,6 +79,11 @@ Node* lin_list_remove_head(Node* head) {
 
 /* removes the last node from a linked list */
 void lin_list_remove_tail(Node* head) {
+    if (head == NULL) {
+        perror("\nHEAD REFERENCE WAS NULL");
+        return;
+    }
+
     Node *current, *previous;
     current = previous = head;
 
@@ -73,6 +98,11 @@ void lin_list_remove_tail(Node* head) {
 
 /* removes the first node with data identical to given from a linked list and returns the head node */
 Node* lin_list_remove(Node* head, void* data) {
+    if (head == NULL) {
+        perror("\nHEAD REFERENCE WAS NULL");
+        return NULL;
+    }
+
     Node *current, *previous;
     current = previous = head;
 
@@ -100,6 +130,11 @@ Node* lin_list_remove(Node* head, void* data) {
 
 /* completely deallocates a linked list */
 void lin_list_dealloc(Node* head) {
+    if (head == NULL) {
+        perror("\nHEAD REFERENCE WAS NULL");
+        return;
+    }
+
     if (head->next != NULL) {
         lin_list_dealloc(head->next);
     }
