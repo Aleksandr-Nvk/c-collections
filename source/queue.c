@@ -1,15 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-#define MIN_CAPACITY 4  /* default capacity of an empty queue when you add the first item to it */
-
-/* basic queue structure, a wrapping around an array */
-typedef struct Queue {
-    void** array;
-
-    size_t count;            /* amount of items currently stored in queue */
-    size_t capacity;            /* possible amount of items stored in queue (can be expanded) */
-} Queue;
+#include "collections.h"
 
 /* returns a new blank queue */
 Queue queue_new(void) {
@@ -25,7 +16,7 @@ void queue_enqueue(Queue* queue, void* item) {
     }
 
     if (queue->capacity == 0) {          /* set default capacity if list is empty */
-        queue->capacity = MIN_CAPACITY;
+        queue->capacity = MIN_QUEUE_CAPACITY;
         queue->array = malloc(queue->capacity * sizeof(void*));
     } else if (queue->count == queue->capacity) {         /* double capacity of list if more space is needed */
         queue->capacity *= 2;

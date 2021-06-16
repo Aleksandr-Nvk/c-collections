@@ -1,15 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-
-#define MIN_CAPACITY 4  /* default capacity of an empty list when you add the first item to it */
-
-/* basic list structure, a wrapping around an array */
-typedef struct List {
-    void** array;
-
-    size_t count;            /* amount of items currently stored in list */
-    size_t capacity;            /* possible amount of items stored in list (can be expanded) */
-} List;
+#include "collections.h"
 
 /* returns a new blank list */
 List list_new(void) {
@@ -39,7 +30,7 @@ void list_add(List* list, void* item) {
         return;
     }
     if (list->capacity == 0) {
-        list->capacity = MIN_CAPACITY;          /* set default capacity if list is empty */
+        list->capacity = MIN_LIST_CAPACITY;          /* set default capacity if list is empty */
         list->array = malloc(list->capacity * sizeof(void*));
     } else if (list->count == list->capacity) {
         list->capacity *= 2;            /* double capacity of list if more space is needed */

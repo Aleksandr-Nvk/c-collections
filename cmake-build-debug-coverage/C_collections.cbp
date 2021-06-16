@@ -87,9 +87,6 @@
 		<Unit filename="/Users/alex/Documents/C collections/main.c">
 			<Option target="Main"/>
 		</Unit>
-		<Unit filename="/Users/alex/Documents/C collections/source/collections_generic.h">
-			<Option target="Main"/>
-		</Unit>
 		<Unit filename="/Users/alex/Documents/C collections/source/dictionary.c">
 			<Option target="Main"/>
 		</Unit>
@@ -118,9 +115,6 @@
 			<Option target="Main"/>
 		</Unit>
 		<Unit filename="/Users/alex/Documents/C collections/usages/stack_usage.c">
-			<Option target="Main"/>
-		</Unit>
-		<Unit filename="/Users/alex/Documents/C collections/usages/usages.h">
 			<Option target="Main"/>
 		</Unit>
 		<Unit filename="/Users/alex/Documents/C collections/CMakeLists.txt">

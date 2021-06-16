@@ -1,14 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
-
-/* basic node structure */
-typedef struct Node {
-    void* data;
-    struct Node* next;
-} Node;
+#include "collections.h"
 
 /* returns a new head node */
-Node* lin_list_new_head(void* data) {
+Node* lin_list_head_new(void* data) {
     Node* new_node = malloc(sizeof(Node));  /* heads are allocated in heap to be cleaned easily */
     new_node->data = data;
     new_node->next = NULL;

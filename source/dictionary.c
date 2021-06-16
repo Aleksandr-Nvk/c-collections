@@ -1,22 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include "collections.h"
 
-#define MIN_CAPACITY 4  /* default capacity of internal dictionary arrays when you add the first items to them */
-
-typedef struct KeyValuePair {
-    void* key;
-    void* value;
-} KeyValuePair;
-
-typedef struct Dictionary {
-    KeyValuePair** array;           /* array of 10 arrays, basic structure of hash table */
-
-    size_t* counts;         /* stores 10 counts of each nested array */
-    size_t* capacities;         /* stores 10 capacities of each nested array */
-
-    size_t count;            /* amount of key-value pairs currently stored in dictionary */
-} Dictionary;
-
+/* returns a new blank dictionary */
 Dictionary dict_new(void) {
     size_t pair, other;
     pair = sizeof(KeyValuePair*);
@@ -40,7 +26,7 @@ void dict_add(Dictionary* dictionary, void* key, void* value) {
     size_t index = (long)key % 10;          /* reduce the amount of indices */
 
     if (dictionary->capacities[index] == 0) {
-        dictionary->capacities[index] = MIN_CAPACITY;
+        dictionary->capacities[index] = MIN_DICTIONARY_CAPACITY;
         dictionary->array[index] = malloc(dictionary->capacities[index] * sizeof(KeyValuePair));
     } else if (dictionary->capacities[index] == dictionary->counts[index]) {
         dictionary->capacities[index] *= 2;
